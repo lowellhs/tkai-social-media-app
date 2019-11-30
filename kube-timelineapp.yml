@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timelineapp-deployment
+  labels:
+    app: timelineapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timelineapp
+  template:
+    metadata:
+      labels:
+        app: timelineapp
+    spec:
+      containers:
+      - name: timelineapp-container
+        image: lowellhs/timelineapp
+        env:
+            - name: DB_HOST_TIMELINEAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_HOST_TIMELINEAPP
+            - name: DB_PORT_TIMELINEAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_PORT_TIMELINEAPP
+            - name: DB_NAME_TIMELINEAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_NAME_TIMELINEAPP
+            - name: DB_USER_TIMELINEAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_USER_TIMELINEAPP
+            - name: DB_PASS_TIMELINEAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_PASS_TIMELINEAPP
+        ports:
+        - containerPort: 8000
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: timelineapp-service
+spec:
+  type: NodePort
+  selector:
+    app: timelineapp
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 31002
+---

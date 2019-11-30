@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+
+{% block style %}
+<style>
+    html {
+        height: 100%;
+    }
+    
+    body {
+        min-height: 100%;
+    }
+
+    .main-profil-container {
+        padding: 20px;
+        border: 1px solid #00000029;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 50px auto;
+    }
+
+    #main-profil-pict {
+        width: 150px;
+        border-radius: 50%;
+    }
+
+    .main-profil-fullname {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .main-profil-username {
+        font-size: 20px;
+    }
+
+    .main-profil-detail {
+        background: #007bff;
+        font-size: 11px;
+        padding: 2px 5px;
+        margin-left: 5px;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .main-profil-detail:hover {
+        background: #0069d9;
+        color: white;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container main-profil-container">
+    <center>
+        <img src="{% static '/img/unknown.png' %}" id="main-profil-pict">
+    </center>
+    <br />
+    <center>
+        <span class="main-profil-fullname">{{fullname}}</span>
+        <br />
+        <span class="main-profil-username">@{{username}}</span>
+        <br />
+        <span class="main-profil-email">{{email}}</span>
+    </center>
+    <hr />
+    <center>
+        &nbsp;&nbsp;Follower : {{follower}} <a class="main-profil-detail" href="{% url 'main:follower' %}">detail</a>
+        <br />
+        Following : {{following}} <a class="main-profil-detail" href="{% url 'main:following' %}">detail</a>
+    </center>
+</div>
+{% endblock %}

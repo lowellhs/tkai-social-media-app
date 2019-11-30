@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+
+{% block style %}
+<style>
+    html {
+        height: 100%;
+    }
+    
+    body {
+        min-height: 100%;
+    }
+
+    .main-following-container {
+        padding: 20px;
+        border: 1px solid #00000029;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 50px auto;
+    }
+
+    .main-following-row-item {
+        padding: 5px 20px;
+        margin-bottom: 5px;
+    }
+
+    .main-following-button-ufollow {
+        text-align: right;
+    }
+
+    .main-following-usernames {
+        font-size: 20px;
+    }
+
+    .main-following-title {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container main-following-container">
+    <center>
+        <span class="main-following-title">Following</span>
+    </center>
+    <div class="container">
+        <hr />
+        {% for following in followings %}
+        <div class="row main-following-row-item">
+            <div class="col-sm-6">
+                <span class="main-following-usernames">@{{following}}</span>
+            </div>
+            <div class="col-sm-6 main-following-button-ufollow">
+                <form method="POST" action="{% url 'main:unfollow' %}">
+                    {% csrf_token %}
+                    <input name="target-user" value="{{following}}" hidden>
+                    <input name="target-url" value="{{request.path}}" hidden>
+                    <div class="btn-wrapper main-login-btn-wrapper">
+                        <button class="btn btn-sm">unfollow</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

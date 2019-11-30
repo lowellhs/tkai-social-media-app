@@ -1,0 +1,5 @@
+Django
+gunicorn
+whitenoise
+requests
+urllib3

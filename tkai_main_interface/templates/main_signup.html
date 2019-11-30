@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+
+{% block style %}
+<style>
+    html {
+        height: 100%;
+    }
+    
+    body {
+        min-height: 100%;
+    }
+
+    .main-signup-container {
+        padding: 20px;
+        border: 1px solid #00000029;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 50px auto;
+    }
+
+    .main-signup-form-group {
+        width: 75%;
+        margin: auto;
+    }
+
+    #auth-title {
+        font-size: 48px;
+        font-weight: bold;
+        color:black;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container main-signup-container">
+    <center>
+        <span id=auth-title>
+            Sign Up
+        </span>
+    </center>
+    <br />
+    <form action="{% url 'main:signup-post' %}" method="POST" enctype="multipart/form-data" class="form-group main-signup-form-group">
+        {% csrf_token %}
+        <!-- <label for="profile-pict">Choose profile picture !</label>
+        <input type="file" accept=".jpg,.png" class="form-control" id="profile-pict" name="profile-pict" required>
+        <br /> -->
+        <label for="profile-pict">Profile URL</label>
+        <input type="text" class="form-control" id="profile-pict" name="profile-pict">
+        <br />
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+        <br />
+        <label for="password">Password </label>
+        <input type="password" class="form-control" id="password" name="password" required>
+        <br />
+        <label for="fullname">Full name</label>
+        <input type="text" class="form-control" id="fullname" name="fullname" required>
+        <br />
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+        <br />
+        <br />
+        <div class="btn-wrapper">
+        <button type="submit" class="btn btn-primary btn-block" id="login">Sign up</button>
+        </div>
+        <br />
+    </form>
+</div>
+{% endblock %}

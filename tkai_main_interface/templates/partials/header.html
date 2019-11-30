@@ -1,0 +1,44 @@
+{% load static %}
+{% load staticfiles %}
+
+<nav class="navbar navbar-expand-lg">
+    <b>
+        <a class="navbar-brand socmed-title" href="{% url 'main:home' %}">SocMed</a>
+    </b>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        {% if request.path == "/main/login/" %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-direction: row-reverse;">
+            <a class="btn btn-primary" href="{% url 'main:signup' %}">Sign up</a>
+        </div>
+        {% elif request.path == "/main/signup/" %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-direction: row-reverse;">
+            <a class="btn btn-primary" href="{% url 'main:login' %}">Login</a>
+        </div>
+        {% else %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:follower' %}">Follower</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:following' %}">Following</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:search' %}">Search</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'main:logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Logout</button>
+            </form>
+        </div>
+        {% endif %}
+</nav>

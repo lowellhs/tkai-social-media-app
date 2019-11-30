@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+
+{% block style %}
+<style>
+    html {
+        height: 100%;
+    }
+    
+    body {
+        min-height: 100%;
+    }
+
+    .main-home-container {
+        padding: 20px;
+        border: 1px solid #00000029;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 50px auto;
+    }
+
+    .main-home-row-item {
+        display: block;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #007bff;
+        border-radius: 12px;
+    }
+
+    .main-home-tweet {
+        margin-bottom: 10px;
+    }
+
+    .main-home-row-hr {
+        margin-top: 4px;
+        margin-bottom: 5px;
+        border-color: #007bff;
+    }
+
+    .main-home-tweet-date {
+        font-size: 12px;
+        color: gray;
+    }
+
+    .main-login-btn-wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .main-search-row-item {
+        padding: 5px 20px;
+        margin-bottom: 5px;
+    }
+
+    .main-search-button-ufollow {
+        text-align: right;
+    }
+
+    .main-search-usernames {
+        font-size: 20px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container main-home-container">
+    <form method="POST" action="{% url 'main:search' %}">
+        {% csrf_token %}
+        <label for="search">Search by Username :</label>
+        <input type="text" class="form-control" id="search" name="search" required>
+        <br />
+        <center>
+            <div class="btn-wrapper">
+                <button type="submit" class="btn btn-primary btn-sm" id="submit">Search</button>
+            </div>
+        </center>
+    </form>
+    {% if isPost %}
+        <hr />
+        {% if userFound %}
+        <div class="container">
+            <div class="row main-search-row-item">
+                <div class="col-sm-6">
+                    <span class="main-search-usernames">@{{foundUsername}}</span>
+                </div>
+                <div class="col-sm-6 main-following-button-ufollow">
+                    {% if isFollowed %}
+                        <form method="POST" action="{% url 'main:unfollow' %}">
+                            {% csrf_token %}
+                            <input name="target-user" value="{{foundUsername}}" hidden>
+                            <input name="target-url" value="{{request.path}}" hidden>
+                            <div class="btn-wrapper main-login-btn-wrapper">
+                                <button class="btn btn-sm">unfollow</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{% url 'main:follow' %}">
+                            {% csrf_token %}
+                            <input name="target-user" value="{{foundUsername}}" hidden>
+                            <input name="target-url" value="{{request.path}}" hidden>
+                            <div class="btn-wrapper main-login-btn-wrapper">
+                                <button class="btn btn-primary btn-sm">&nbsp;&nbsp;follow&nbsp;&nbsp;</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            User not found! 
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

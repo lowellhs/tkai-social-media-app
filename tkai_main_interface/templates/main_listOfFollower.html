@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+
+{% block style %}
+<style>
+    html {
+        height: 100%;
+    }
+    
+    body {
+        min-height: 100%;
+    }
+
+    .main-follower-container {
+        padding: 20px;
+        border: 1px solid #00000029;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 50px auto;
+    }
+
+    .main-follower-row-item {
+        padding: 5px 20px;
+        margin-bottom: 5px;
+    }
+
+    .main-follower-button-ufollow {
+        text-align: right;
+    }
+
+    .main-follower-usernames {
+        font-size: 20px;
+    }
+
+    .main-follower-title {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container main-follower-container">
+    <center>
+        <span class="main-follower-title">Follower</span>
+    </center>
+    <div class="container">
+        <hr />
+        {% for follower in followers %}
+        <div class="row main-follower-row-item">
+            <div class="col-sm-6">
+                <span class="main-follower-usernames">@{{follower.username}}</span>
+            </div>
+            <div class="col-sm-6 main-follower-button-ufollow">
+                {% if follower.relate %}
+                    <form method="POST" action="{% url 'main:unfollow' %}">
+                        {% csrf_token %}
+                        <input name="target-user" value="{{follower.username}}" hidden>
+                        <input name="target-url" value="{{request.path}}" hidden>
+                        <div class="btn-wrapper main-login-btn-wrapper">
+                            <button class="btn btn-sm">unfollow</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <form method="POST" action="{% url 'main:follow' %}">
+                        {% csrf_token %}
+                        <input name="target-user" value="{{follower.username}}" hidden>
+                        <input name="target-url" value="{{request.path}}" hidden>
+                        <div class="btn-wrapper main-login-btn-wrapper">
+                            <button class="btn btn-primary btn-sm">&nbsp;&nbsp;follow&nbsp;&nbsp;</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
