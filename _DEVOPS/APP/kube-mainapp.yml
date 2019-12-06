@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mainapp-deployment
+  labels:
+    app: mainapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mainapp
+  template:
+    metadata:
+      labels:
+        app: mainapp
+    spec:
+      containers:
+      - name: mainapp-container
+        image: lowellhs/mainapp
+        env:
+            - name: HOST_USERAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: HOST_USERAPP
+            - name: HOST_TIMELINEAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: HOST_TIMELINEAPP
+            - name: HOST_ADDFRIENDAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: HOST_ADDFRIENDAPP
+        ports:
+        - containerPort: 8000
+        imagePullPolicy: IfNotPresent
+        resources:
+            requests:
+                cpu: 100m
+                memory: 100Mi
+            limits:
+                cpu: 200m
+                memory: 200Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mainapp-service
+spec:
+  type: NodePort
+  selector:
+    app: mainapp
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 31000
+---

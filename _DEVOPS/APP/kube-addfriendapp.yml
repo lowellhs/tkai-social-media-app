@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: addfriendapp-deployment
+  labels:
+    app: addfriendapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: addfriendapp
+  template:
+    metadata:
+      labels:
+        app: addfriendapp
+    spec:
+      containers:
+      - name: addfriendapp-container
+        image: lowellhs/addfriendapp
+        env:
+            - name: DB_HOST_ADDFRIENDAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_HOST_ADDFRIENDAPP
+            - name: DB_PORT_ADDFRIENDAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_PORT_ADDFRIENDAPP
+            - name: DB_NAME_ADDFRIENDAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_NAME_ADDFRIENDAPP
+            - name: DB_USER_ADDFRIENDAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_USER_ADDFRIENDAPP
+            - name: DB_PASS_ADDFRIENDAPP
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: DB_PASS_ADDFRIENDAPP
+        ports:
+        - containerPort: 8000
+        imagePullPolicy: IfNotPresent
+        resources:
+            requests:
+                cpu: 100m
+                memory: 100Mi
+            limits:
+                cpu: 200m
+                memory: 200Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: addfriendapp-service
+spec:
+  type: NodePort
+  selector:
+    app: addfriendapp
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 31003
+---

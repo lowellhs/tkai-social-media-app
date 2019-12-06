@@ -1,0 +1,153 @@
+apiVersion: v1
+items:
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    annotations:
+      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ScaleDownStabilized","message":"recent
+        recommendations were higher than current one, applying the highest recent
+        recommendation"},{"type":"ScalingActive","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ValidMetricFound","message":"the
+        HPA was able to successfully calculate a replica count from cpu resource utilization
+        (percentage of request)"},{"type":"ScalingLimited","status":"False","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"DesiredWithinRange","message":"the
+        desired count is within the acceptable range"}]'
+      autoscaling.alpha.kubernetes.io/current-metrics: '[{"type":"Resource","resource":{"name":"cpu","currentAverageUtilization":1,"currentAverageValue":"1m"}}]'
+    creationTimestamp: "2019-12-06T18:08:22Z"
+    name: addfriendapp-deployment
+    namespace: default
+    resourceVersion: "5761"
+    selfLink: /apis/autoscaling/v1/namespaces/default/horizontalpodautoscalers/addfriendapp-deployment
+    uid: 16f1e888-721c-48a0-9a13-5843bce4688d
+  spec:
+    maxReplicas: 2
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: addfriendapp-deployment
+    targetCPUUtilizationPercentage: 80
+  status:
+    currentCPUUtilizationPercentage: 1
+    currentReplicas: 2
+    desiredReplicas: 2
+    lastScaleTime: "2019-12-06T18:21:59Z"
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    annotations:
+      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ScaleDownStabilized","message":"recent
+        recommendations were higher than current one, applying the highest recent
+        recommendation"},{"type":"ScalingActive","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ValidMetricFound","message":"the
+        HPA was able to successfully calculate a replica count from cpu resource utilization
+        (percentage of request)"},{"type":"ScalingLimited","status":"True","lastTransitionTime":"2019-12-06T18:21:59Z","reason":"TooManyReplicas","message":"the
+        desired replica count is more than the maximum replica count"}]'
+      autoscaling.alpha.kubernetes.io/current-metrics: '[{"type":"Resource","resource":{"name":"cpu","currentAverageUtilization":1,"currentAverageValue":"1m"}}]'
+    creationTimestamp: "2019-12-06T18:08:22Z"
+    name: mainapp-deployment
+    namespace: default
+    resourceVersion: "5763"
+    selfLink: /apis/autoscaling/v1/namespaces/default/horizontalpodautoscalers/mainapp-deployment
+    uid: 1e3ff506-972a-444a-9295-327495d4a1d3
+  spec:
+    maxReplicas: 2
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: mainapp-deployment
+    targetCPUUtilizationPercentage: 80
+  status:
+    currentCPUUtilizationPercentage: 1
+    currentReplicas: 2
+    desiredReplicas: 2
+    lastScaleTime: "2019-12-06T18:20:58Z"
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    annotations:
+      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ScaleDownStabilized","message":"recent
+        recommendations were higher than current one, applying the highest recent
+        recommendation"},{"type":"ScalingActive","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ValidMetricFound","message":"the
+        HPA was able to successfully calculate a replica count from cpu resource utilization
+        (percentage of request)"},{"type":"ScalingLimited","status":"True","lastTransitionTime":"2019-12-06T18:20:58Z","reason":"TooManyReplicas","message":"the
+        desired replica count is more than the maximum replica count"}]'
+      autoscaling.alpha.kubernetes.io/current-metrics: '[{"type":"Resource","resource":{"name":"cpu","currentAverageUtilization":1,"currentAverageValue":"1m"}}]'
+    creationTimestamp: "2019-12-06T18:08:22Z"
+    name: postgres-deployment
+    namespace: default
+    resourceVersion: "5762"
+    selfLink: /apis/autoscaling/v1/namespaces/default/horizontalpodautoscalers/postgres-deployment
+    uid: 45fecccc-ee97-4774-a0ae-e0ef4cc02549
+  spec:
+    maxReplicas: 2
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: postgres-deployment
+    targetCPUUtilizationPercentage: 80
+  status:
+    currentCPUUtilizationPercentage: 1
+    currentReplicas: 2
+    desiredReplicas: 2
+    lastScaleTime: "2019-12-06T18:20:58Z"
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    annotations:
+      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ReadyForNewScale","message":"recommended
+        size matches current size"},{"type":"ScalingActive","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ValidMetricFound","message":"the
+        HPA was able to successfully calculate a replica count from cpu resource utilization
+        (percentage of request)"},{"type":"ScalingLimited","status":"False","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"DesiredWithinRange","message":"the
+        desired count is within the acceptable range"}]'
+      autoscaling.alpha.kubernetes.io/current-metrics: '[{"type":"Resource","resource":{"name":"cpu","currentAverageUtilization":1,"currentAverageValue":"1m"}}]'
+    creationTimestamp: "2019-12-06T18:08:22Z"
+    name: timelineapp-deployment
+    namespace: default
+    resourceVersion: "5153"
+    selfLink: /apis/autoscaling/v1/namespaces/default/horizontalpodautoscalers/timelineapp-deployment
+    uid: 3c1c446c-ffdf-4582-b383-38e46483d57c
+  spec:
+    maxReplicas: 2
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: timelineapp-deployment
+    targetCPUUtilizationPercentage: 80
+  status:
+    currentCPUUtilizationPercentage: 1
+    currentReplicas: 1
+    desiredReplicas: 1
+    lastScaleTime: "2019-12-06T18:16:41Z"
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    annotations:
+      autoscaling.alpha.kubernetes.io/conditions: '[{"type":"AbleToScale","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ReadyForNewScale","message":"recommended
+        size matches current size"},{"type":"ScalingActive","status":"True","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"ValidMetricFound","message":"the
+        HPA was able to successfully calculate a replica count from cpu resource utilization
+        (percentage of request)"},{"type":"ScalingLimited","status":"False","lastTransitionTime":"2019-12-06T18:08:37Z","reason":"DesiredWithinRange","message":"the
+        desired count is within the acceptable range"}]'
+      autoscaling.alpha.kubernetes.io/current-metrics: '[{"type":"Resource","resource":{"name":"cpu","currentAverageUtilization":1,"currentAverageValue":"1m"}}]'
+    creationTimestamp: "2019-12-06T18:08:22Z"
+    name: userapp-deployment
+    namespace: default
+    resourceVersion: "5760"
+    selfLink: /apis/autoscaling/v1/namespaces/default/horizontalpodautoscalers/userapp-deployment
+    uid: 99feed83-bc39-4c79-a7d2-b7f54795cee6
+  spec:
+    maxReplicas: 2
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: userapp-deployment
+    targetCPUUtilizationPercentage: 80
+  status:
+    currentCPUUtilizationPercentage: 1
+    currentReplicas: 1
+    desiredReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
